@@ -4,7 +4,7 @@
 import Image from "next/image";
 
 export default function QRCardPage() {
-  const votingUrl = "https://your-fresher-voting-app.vercel.app";
+  const votingUrl = "https://voting-app-pi-two.vercel.app/voting";
 
   return (
     <div className="min-h-screen bg-[#faf8f5] p-6 md:p-10 flex flex-col items-center justify-center font-sans">
@@ -53,7 +53,7 @@ export default function QRCardPage() {
         <div className="relative w-52 h-52 bg-[#faf8f5] p-3 rounded-2xl border-2 border-[#760000]/20 shadow-inner mb-6 flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(votingUrl)}`} 
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent("https://voting-app-pi-two.vercel.app/voting")}`} 
             alt="Voting QR Code" 
             className="w-full h-full object-contain rounded-lg"
           />
