@@ -5,8 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
-// 🔴 ဤနေရာတွင် Result ကြေညာမည့်အချိန်ကို ပြင်ပါ 🔴
-const RESULT_TIME = new Date("2026-09-13T17:47:00").getTime();
+const RESULT_TIME = new Date("2026-09-30T18:00:00").getTime();
 
 const shuffleArray = (array: any[]) => {
   const arr = [...array];
@@ -128,41 +127,41 @@ export default function ResultsPage() {
   if (!isClient) return null;
 
   const DuoReveal = ({ title, boy, girl }: { title: string, boy: any, girl: any }) => (
-    <div className="flex-grow flex flex-col items-center justify-center p-6 animate-[majesticFade_1.5s_cubic-bezier(0.16,1,0.3,1)]">
+    <div className="flex-grow flex flex-col items-center justify-center p-6 animate-[majesticFade_1.5s_cubic-bezier(0.16,1,0.3,1)] relative z-20">
       <div className="text-center mb-10">
-        <span className="text-[#f4d03f] text-xs font-bold tracking-[0.4em] uppercase block mb-2">Royal Announcement</span>
-        <h3 className="text-4xl md:text-6xl font-serif font-bold text-white uppercase tracking-widest drop-shadow-[0_0_40px_rgba(244,208,63,0.8)]">
+        <span className="text-[#F7D070] text-xs font-bold tracking-[0.4em] uppercase block mb-2">Royal Announcement</span>
+        <h3 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-widest drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]" style={{ fontFamily: "'Playfair Display', serif" }}>
           {title}
         </h3>
-        <div className="w-40 h-1 bg-gradient-to-r from-transparent via-[#f4d03f] to-transparent mx-auto mt-4"></div>
+        <div className="w-40 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-4"></div>
       </div>
       <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-center">
         {boy && (
-          <div className="w-80 bg-white/10 p-4 rounded-3xl border-2 border-[#f4d03f] backdrop-blur-2xl shadow-[0_0_60px_rgba(244,208,63,0.3)] animate-[royalSlideLeft_1.2s_cubic-bezier(0.16,1,0.3,1)]">
-            <div className="relative aspect-[4/3] bg-stone-900 rounded-2xl overflow-hidden flex items-center justify-center p-2 mb-4 border border-white/20 shadow-inner">
+          <div className="w-80 bg-[#1a0306]/90 p-5 rounded-3xl border border-[#D4AF37]/50 backdrop-blur-xl shadow-[0_0_50px_rgba(128,0,16,0.3)] animate-[royalSlideLeft_1.2s_cubic-bezier(0.16,1,0.3,1)]">
+            <div className="relative aspect-[4/3] bg-[#0a0103] rounded-2xl overflow-hidden flex items-center justify-center p-2 mb-4 border border-[#D4AF37]/20 shadow-inner">
               <Image src={boy.image_url} alt={boy.name} fill sizes="350px" className="object-contain p-1" />
-              <div className="absolute top-3 left-3 bg-[#760000] text-[#f4d03f] px-3.5 py-1 rounded-full text-xs font-extrabold shadow-lg border border-[#f4d03f]/40">
+              <div className="absolute top-3 left-3 bg-[#800010] text-[#F7D070] px-3.5 py-1 rounded-full text-xs font-bold shadow-lg">
                 {boy.candidate_number}
               </div>
             </div>
             <div className="text-center pb-2">
-              <h4 className="font-serif font-bold text-2xl text-white mb-1">{boy.name}</h4>
-              <p className="text-[#f4d03f] text-xs tracking-widest uppercase font-semibold">Honored Finalist</p>
+              <h4 className="font-bold text-2xl text-white mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>{boy.name}</h4>
+              <p className="text-[#D4AF37] text-xs tracking-widest uppercase">Honored Finalist</p>
             </div>
           </div>
         )}
-        <span className="text-5xl font-serif italic text-[#f4d03f] animate-pulse">✦</span>
+        <span className="text-5xl italic text-[#D4AF37] animate-[pulseSlow_3s_infinite]" style={{ fontFamily: "'Playfair Display', serif" }}>✦</span>
         {girl && (
-          <div className="w-80 bg-white/10 p-4 rounded-3xl border-2 border-[#f4d03f] backdrop-blur-2xl shadow-[0_0_60px_rgba(244,208,63,0.3)] animate-[royalSlideRight_1.2s_cubic-bezier(0.16,1,0.3,1)]">
-            <div className="relative aspect-[4/3] bg-stone-900 rounded-2xl overflow-hidden flex items-center justify-center p-2 mb-4 border border-white/20 shadow-inner">
+          <div className="w-80 bg-[#1a0306]/90 p-5 rounded-3xl border border-[#D4AF37]/50 backdrop-blur-xl shadow-[0_0_50px_rgba(128,0,16,0.3)] animate-[royalSlideRight_1.2s_cubic-bezier(0.16,1,0.3,1)]">
+            <div className="relative aspect-[4/3] bg-[#0a0103] rounded-2xl overflow-hidden flex items-center justify-center p-2 mb-4 border border-[#D4AF37]/20 shadow-inner">
               <Image src={girl.image_url} alt={girl.name} fill sizes="350px" className="object-contain p-1" />
-              <div className="absolute top-3 left-3 bg-[#760000] text-[#f4d03f] px-3.5 py-1 rounded-full text-xs font-extrabold shadow-lg border border-[#f4d03f]/40">
+              <div className="absolute top-3 left-3 bg-[#800010] text-[#F7D070] px-3.5 py-1 rounded-full text-xs font-bold shadow-lg">
                 {girl.candidate_number}
               </div>
             </div>
             <div className="text-center pb-2">
-              <h4 className="font-serif font-bold text-2xl text-white mb-1">{girl.name}</h4>
-              <p className="text-[#f4d03f] text-xs tracking-widest uppercase font-semibold">Honored Finalist</p>
+              <h4 className="font-bold text-2xl text-white mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>{girl.name}</h4>
+              <p className="text-[#D4AF37] text-xs tracking-widest uppercase">Honored Finalist</p>
             </div>
           </div>
         )}
@@ -171,25 +170,25 @@ export default function ResultsPage() {
   );
 
   const SoloReveal = ({ title, candidate }: { title: string, candidate: any }) => (
-    <div className="flex-grow flex flex-col items-center justify-center p-6 animate-[majesticFade_1.5s_cubic-bezier(0.16,1,0.3,1)]">
+    <div className="flex-grow flex flex-col items-center justify-center p-6 animate-[majesticFade_1.5s_cubic-bezier(0.16,1,0.3,1)] relative z-20">
       <div className="text-center mb-8">
-        <span className="text-[#f4d03f] text-xs font-bold tracking-[0.5em] uppercase block mb-2">Supreme Crown</span>
-        <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#f4d03f] uppercase tracking-widest drop-shadow-[0_0_50px_rgba(244,208,63,0.9)]">
+        <span className="text-[#F7D070] text-xs font-bold tracking-[0.5em] uppercase block mb-2">Supreme Crown</span>
+        <h3 className="text-5xl md:text-7xl font-bold text-[#D4AF37] uppercase tracking-widest drop-shadow-[0_0_40px_rgba(212,175,55,0.6)] animate-[textGlow_4s_infinite]" style={{ fontFamily: "'Playfair Display', serif" }}>
           {title}
         </h3>
-        <div className="w-56 h-1 bg-gradient-to-r from-transparent via-[#f4d03f] to-transparent mx-auto mt-4"></div>
+        <div className="w-56 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-4"></div>
       </div>
       {candidate && (
-        <div className="w-96 bg-gradient-to-b from-white/25 to-white/5 p-6 rounded-[2.5rem] border-4 border-[#f4d03f] backdrop-blur-2xl shadow-[0_0_120px_rgba(244,208,63,0.7)] animate-[royalZoom_1.4s_cubic-bezier(0.16,1,0.3,1)]">
-          <div className="relative aspect-[4/3] bg-stone-900 rounded-2xl overflow-hidden flex items-center justify-center p-3 mb-5 border-2 border-[#f4d03f] shadow-2xl">
+        <div className="w-96 bg-[#1a0306]/95 p-7 rounded-[2.5rem] border-2 border-[#D4AF37] backdrop-blur-3xl shadow-[0_0_80px_rgba(128,0,16,0.6)] animate-[royalZoom_1.4s_cubic-bezier(0.16,1,0.3,1)]">
+          <div className="relative aspect-[4/3] bg-[#0a0103] rounded-2xl overflow-hidden flex items-center justify-center p-3 mb-5 border border-[#D4AF37]/30 shadow-2xl">
             <Image src={candidate.image_url} alt={candidate.name} fill sizes="400px" className="object-contain p-1" />
-            <div className="absolute top-4 left-4 bg-[#760000] text-[#f4d03f] px-4 py-1.5 rounded-full text-sm font-black shadow-2xl border-2 border-[#f4d03f] animate-bounce">
+            <div className="absolute top-4 left-4 bg-[#800010] text-[#F7D070] px-4 py-1.5 rounded-full text-sm font-bold shadow-2xl border border-[#D4AF37]/50 animate-bounce">
               👑 {candidate.candidate_number}
             </div>
           </div>
           <div className="text-center">
-            <h4 className="font-serif font-bold text-3xl text-white mb-2 drop-shadow-md">{candidate.name}</h4>
-            <p className="text-[#f4d03f] tracking-[0.3em] uppercase text-xs font-bold">Strategy First 2026 Sovereign</p>
+            <h4 className="font-bold text-3xl text-white mb-2 drop-shadow-md" style={{ fontFamily: "'Playfair Display', serif" }}>{candidate.name}</h4>
+            <p className="text-[#D4AF37] tracking-[0.3em] uppercase text-xs font-bold">Strategy First 2026 Sovereign</p>
           </div>
         </div>
       )}
@@ -197,89 +196,86 @@ export default function ResultsPage() {
   );
 
   return (
-    // 💡 Strategy First ၏ တရားဝင် Brand Color (Deep Red / #760000) သို့ အတိအကျ ချိန်ညှိထားသည်
-    <div className="min-h-screen bg-gradient-to-b from-[#760000] via-[#520000] to-[#300000] text-white font-sans flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-[#120205] text-[#F7D070] flex flex-col relative overflow-hidden selection:bg-[#800010] selection:text-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       
-      {/* Background Glow Effects */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#f4d03f]/10 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-[#760000]/30 rounded-full blur-[140px] animate-pulse"></div>
-      </div>
+      {/* Background Animated Orbs */}
+      <div className="absolute top-[-10%] left-[10%] w-[35rem] h-[35rem] bg-[#800010]/15 rounded-full blur-[140px] animate-[floatGlow1_10s_infinite_ease-in-out] pointer-events-none"></div>
+      <div className="absolute bottom-[-15%] right-[5%] w-[45rem] h-[45rem] bg-[#D4AF37]/10 rounded-full blur-[160px] animate-[floatGlow2_12s_infinite_ease-in-out] pointer-events-none"></div>
 
-      {/* Majestic Suspense Overlay */}
+      {/* Suspense Overlay */}
       {isRevealing && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-2xl flex flex-col items-center justify-center animate-[majesticFade_0.4s_ease-out]">
-          <div className="relative w-28 h-28 rounded-full border-4 border-[#f4d03f]/30 flex items-center justify-center mb-6 animate-pulse">
-            <div className="absolute inset-0 rounded-full border-t-4 border-[#f4d03f] animate-spin"></div>
+        <div className="fixed inset-0 z-50 bg-[#120205]/95 backdrop-blur-2xl flex flex-col items-center justify-center animate-[majesticFade_0.4s_ease-out]">
+          <div className="relative w-28 h-28 rounded-full border border-[#D4AF37]/30 flex items-center justify-center mb-6 animate-pulse">
+            <div className="absolute inset-0 rounded-full border-t-2 border-[#D4AF37] animate-spin"></div>
             <span className="text-4xl">👑</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl text-[#f4d03f] tracking-[0.35em] uppercase animate-pulse text-center drop-shadow-lg">
+          <h2 className="text-3xl md:text-5xl text-[#D4AF37] tracking-[0.35em] uppercase animate-pulse text-center drop-shadow-lg" style={{ fontFamily: "'Playfair Display', serif" }}>
             Awaiting the Sovereign...
           </h2>
-          <p className="text-stone-400 text-xs tracking-[0.3em] uppercase mt-4">Orchestral Suspense in Progress</p>
+          <p className="text-[#F7D070]/60 text-xs tracking-[0.3em] uppercase mt-4">Orchestral Suspense in Progress</p>
         </div>
       )}
 
-      {/* Top Header */}
-      <div className="pt-8 pb-6 flex flex-col items-center border-b border-[#f4d03f]/20 bg-[#520000]/90 backdrop-blur-md z-10">
+      {/* Header */}
+      <div className="pt-8 pb-6 flex flex-col items-center border-b border-[#D4AF37]/10 bg-[#120205]/80 backdrop-blur-md z-10 shadow-2xl relative">
         <div className="flex items-center gap-4 mb-1">
-          <div className="relative w-14 h-14 md:w-16 md:h-16 bg-white/5 p-2 rounded-2xl border border-[#f4d03f]/40 shadow-2xl">
-            <Image src="https://qnupslgliykfalnchsfg.supabase.co/storage/v1/object/public/Candidates/Untitled%20design-6.png" alt="SF Logo" fill className="object-contain p-2" priority />
+          <div className="relative w-14 h-14 md:w-16 md:h-16 bg-[#800010]/20 p-2 rounded-2xl border border-[#800010]">
+            <Image src="https://qnupslgliykfalnchsfg.supabase.co/storage/v1/object/public/Candidates/Untitled%20design-6.png" alt="SF Logo" fill sizes="64px" className="object-contain p-2" priority />
           </div>
           <div className="text-center md:text-left">
-            <h1 className="text-lg md:text-xl font-light tracking-[0.35em] uppercase text-white">Strategy First</h1>
-            <p className="text-xs md:text-sm text-[#f4d03f] tracking-[0.25em] uppercase font-bold">Fresher's Welcome 2026</p>
+            <h1 className="text-lg md:text-xl font-light tracking-[0.35em] uppercase text-white" style={{ fontFamily: "'Playfair Display', serif" }}>Strategy First</h1>
+            <p className="text-xs md:text-sm text-[#D4AF37] tracking-[0.25em] uppercase font-bold">Fresher's Welcome 2026</p>
           </div>
         </div>
       </div>
 
       {/* Screen 0: Countdown */}
       {step === 0 && (
-        <div className="flex-grow flex flex-col items-center justify-center p-6 text-center z-10">
-          <div className="bg-black/50 p-12 md:p-24 rounded-[2.5rem] border-2 border-[#f4d03f]/50 backdrop-blur-2xl shadow-[0_0_90px_rgba(0,0,0,0.9)] max-w-4xl w-full">
-            <span className="text-5xl mb-6 block animate-bounce">👑</span>
-            <h3 className="text-2xl md:text-4xl font-serif text-[#f4d03f] mb-6 uppercase tracking-[0.3em] font-light">
+        <div className="flex-grow flex flex-col items-center justify-center p-6 text-center z-20 relative">
+          <div className="bg-[#1a0306]/60 backdrop-blur-md p-12 md:p-24 rounded-[2.5rem] border border-[#D4AF37]/30 shadow-[0_0_80px_rgba(128,0,16,0.4)] max-w-4xl w-full">
+            <span className="text-5xl mb-6 block animate-[pulseSlow_3s_infinite]">👑</span>
+            <h3 className="text-2xl md:text-4xl text-[#D4AF37] mb-6 uppercase tracking-[0.3em] font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
               The Grand Reveal Begins In
             </h3>
-            <div className="text-5xl md:text-7xl lg:text-8xl font-mono font-bold text-white tracking-wider drop-shadow-[0_0_35px_rgba(244,208,63,0.7)]">
+            <div className="text-5xl md:text-7xl lg:text-8xl font-mono font-bold text-white tracking-wider animate-[textGlow_3s_infinite]">
               {timeLeft}
             </div>
-            <p className="mt-8 text-stone-400 text-xs tracking-[0.4em] uppercase">Please take your seats • Royal Ceremony</p>
+            <p className="mt-8 text-[#F7D070]/50 text-xs tracking-[0.4em] uppercase">Please take your seats • Royal Ceremony</p>
           </div>
         </div>
       )}
 
       {/* Screen 1 & 7: Leaderboard */}
       {(step === 1 || step === 7) && (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 w-full flex-grow animate-[majesticFade_1s_ease-out] z-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 w-full flex-grow animate-[majesticFade_1s_ease-out] z-20 relative">
           <div className="col-span-full text-center mb-2">
-             <span className="text-[#f4d03f] text-xs font-bold tracking-[0.3em] uppercase">Ceremony Hall</span>
-             <h2 className="text-4xl md:text-6xl font-serif font-bold text-white drop-shadow-lg mt-1">
+             <span className="text-[#F7D070] text-xs font-bold tracking-[0.3em] uppercase">Ceremony Hall</span>
+             <h2 className="text-4xl md:text-6xl font-bold text-white mt-1" style={{ fontFamily: "'Playfair Display', serif" }}>
                 {step === 1 ? "Official Nominees" : "Final Voting Results"}
              </h2>
           </div>
           
           {/* Kings Leaderboard */}
-          <div className="bg-black/30 p-6 md:p-8 rounded-3xl border border-[#f4d03f]/20 backdrop-blur-xl shadow-2xl">
-            <h3 className="text-2xl font-serif font-bold text-center text-[#f4d03f] mb-6 border-b border-[#f4d03f]/30 pb-3 uppercase tracking-widest">
+          <div className="bg-[#1a0306]/80 p-6 md:p-8 rounded-3xl border border-[#D4AF37]/20 backdrop-blur-xl shadow-2xl">
+            <h3 className="text-2xl font-bold text-center text-[#D4AF37] mb-6 border-b border-[#D4AF37]/20 pb-3 uppercase tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>
               👑 Kings Leaderboard
             </h3>
             <div className="space-y-3.5">
               {kings.map((king, index) => (
-                <div key={king.id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-700 ${step === 7 && index === 0 ? "bg-gradient-to-r from-[#760000] to-[#520000] border-[#f4d03f] shadow-[0_0_35px_rgba(244,208,63,0.7)] scale-105" : "bg-white/5 border-white/10"}`}>
+                <div key={king.id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-700 ${step === 7 && index === 0 ? "bg-[#800010] border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105" : "bg-[#120205] border-[#D4AF37]/10"}`}>
                   <div className="flex items-center gap-4">
-                    <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? "bg-[#f4d03f] text-[#760000]" : "bg-white/10 text-white"}`}>
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? "bg-[#D4AF37] text-[#120205]" : "bg-[#1a0306] text-[#F7D070]"}`}>
                       #{index + 1}
                     </div>
-                    <div className="relative w-14 h-14 bg-stone-900 rounded-xl overflow-hidden border border-white/20 flex-shrink-0">
-                       <Image src={king.image_url} alt={king.name} fill className="object-cover" />
+                    <div className="relative w-14 h-14 bg-[#0a0103] rounded-xl overflow-hidden border border-[#D4AF37]/10 flex-shrink-0">
+                       <Image src={king.image_url} alt={king.name} fill sizes="56px" className="object-cover" />
                     </div>
                     <div>
                       <div className="font-bold text-white text-base md:text-lg">{king.name}</div>
-                      <div className="text-xs text-[#f4d03f] font-mono">{king.candidate_number}</div>
+                      <div className="text-xs text-[#D4AF37] font-mono">{king.candidate_number}</div>
                     </div>
                   </div>
-                  <div className="text-2xl font-black font-mono text-[#f4d03f]">
+                  <div className="text-2xl font-black font-mono text-[#F7D070]">
                     {step === 1 ? "???" : `${king.vote_count}`}
                   </div>
                 </div>
@@ -288,26 +284,26 @@ export default function ResultsPage() {
           </div>
 
           {/* Queens Leaderboard */}
-          <div className="bg-black/30 p-6 md:p-8 rounded-3xl border border-[#f4d03f]/20 backdrop-blur-xl shadow-2xl">
-            <h3 className="text-2xl font-serif font-bold text-center text-[#f4d03f] mb-6 border-b border-[#f4d03f]/30 pb-3 uppercase tracking-widest">
+          <div className="bg-[#1a0306]/80 p-6 md:p-8 rounded-3xl border border-[#D4AF37]/20 backdrop-blur-xl shadow-2xl">
+            <h3 className="text-2xl font-bold text-center text-[#D4AF37] mb-6 border-b border-[#D4AF37]/20 pb-3 uppercase tracking-widest" style={{ fontFamily: "'Playfair Display', serif" }}>
               👑 Queens Leaderboard
             </h3>
             <div className="space-y-3.5">
               {queens.map((queen, index) => (
-                <div key={queen.id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-700 ${step === 7 && index === 0 ? "bg-gradient-to-r from-[#760000] to-[#520000] border-[#f4d03f] shadow-[0_0_35px_rgba(244,208,63,0.7)] scale-105" : "bg-white/5 border-white/10"}`}>
+                <div key={queen.id} className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-700 ${step === 7 && index === 0 ? "bg-[#800010] border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105" : "bg-[#120205] border-[#D4AF37]/10"}`}>
                   <div className="flex items-center gap-4">
-                    <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? "bg-[#f4d03f] text-[#760000]" : "bg-white/10 text-white"}`}>
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? "bg-[#D4AF37] text-[#120205]" : "bg-[#1a0306] text-[#F7D070]"}`}>
                       #{index + 1}
                     </div>
-                    <div className="relative w-14 h-14 bg-stone-900 rounded-xl overflow-hidden border border-white/20 flex-shrink-0">
-                       <Image src={queen.image_url} alt={queen.name} fill className="object-cover" />
+                    <div className="relative w-14 h-14 bg-[#0a0103] rounded-xl overflow-hidden border border-[#D4AF37]/10 flex-shrink-0">
+                       <Image src={queen.image_url} alt={queen.name} fill sizes="56px" className="object-cover" />
                     </div>
                     <div>
                       <div className="font-bold text-white text-base md:text-lg">{queen.name}</div>
-                      <div className="text-xs text-[#f4d03f] font-mono">{queen.candidate_number}</div>
+                      <div className="text-xs text-[#D4AF37] font-mono">{queen.candidate_number}</div>
                     </div>
                   </div>
-                  <div className="text-2xl font-black font-mono text-[#f4d03f]">
+                  <div className="text-2xl font-black font-mono text-[#F7D070]">
                     {step === 1 ? "???" : `${queen.vote_count}`}
                   </div>
                 </div>
@@ -317,51 +313,36 @@ export default function ResultsPage() {
         </div>
       )}
 
-      {/* Screen 2: Mr & Ms Popular */}
+      {/* Screen Reveals */}
       {step === 2 && <DuoReveal title="Mr. & Ms. Popular" boy={kings[2]} girl={queens[2]} />}
-      
-      {/* Screen 3: Prince & Princess */}
       {step === 3 && <DuoReveal title="Prince & Princess" boy={kings[1]} girl={queens[1]} />}
-      
-      {/* Screen 4: Queen Solo */}
       {step === 4 && <SoloReveal title="Queen of 2026" candidate={queens[0]} />}
-      
-      {/* Screen 5: King Solo */}
       {step === 5 && <SoloReveal title="King of 2026" candidate={kings[0]} />}
-      
-      {/* Screen 6: King & Queen Duo */}
       {step === 6 && <DuoReveal title="The King & Queen of 2026" boy={kings[0]} girl={queens[0]} />}
 
       {/* Presentation Controls */}
       {step > 0 && step < 7 && (
         <div className="fixed bottom-6 right-6 flex gap-3 z-50">
-          <button onClick={handlePrevStep} disabled={isRevealing} className="px-5 py-2.5 bg-black/60 hover:bg-black/90 rounded-full text-white backdrop-blur-md transition-all text-xs font-bold uppercase tracking-widest border border-white/20 cursor-pointer disabled:opacity-50">
+          <button onClick={handlePrevStep} disabled={isRevealing} className="px-5 py-2.5 bg-[#1a0306] hover:bg-[#120205] rounded-xl text-[#F7D070] border border-[#D4AF37]/30 transition-all text-xs font-bold uppercase tracking-widest cursor-pointer disabled:opacity-50">
             ⬅️ Prev
           </button>
-          <button onClick={handleNextStep} disabled={isRevealing} className="px-7 py-3 bg-[#f4d03f] hover:bg-[#ffe477] text-[#760000] rounded-full transition-all text-sm font-black uppercase tracking-widest shadow-[0_0_35px_rgba(244,208,63,0.7)] cursor-pointer disabled:opacity-50 flex items-center gap-2">
+          <button onClick={handleNextStep} disabled={isRevealing} className="px-7 py-3 bg-[#800010] hover:bg-[#a30015] text-[#F7D070] rounded-xl transition-all text-sm font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(128,0,16,0.5)] cursor-pointer disabled:opacity-50 flex items-center gap-2">
             <span>Next Royal Reveal</span> <span>✨</span>
           </button>
         </div>
       )}
 
-      {/* Custom Majestic Animations CSS */}
+      {/* Global Font Injection & Animations */}
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes majesticFade {
-          0% { opacity: 0; transform: scale(0.95) translateY(20px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes royalSlideLeft {
-          0% { opacity: 0; transform: translateX(-60px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes royalSlideRight {
-          0% { opacity: 0; transform: translateX(60px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes royalZoom {
-          0% { opacity: 0; transform: scale(0.85); }
-          100% { opacity: 1; transform: scale(1.05); }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
+        @keyframes majesticFade { 0% { opacity: 0; transform: scale(0.95) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes royalSlideLeft { 0% { opacity: 0; transform: translateX(-40px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes royalSlideRight { 0% { opacity: 0; transform: translateX(40px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes royalZoom { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes floatGlow1 { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; } 50% { transform: translate(30px, -30px) scale(1.1); opacity: 0.25; } }
+        @keyframes floatGlow2 { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.1; } 50% { transform: translate(-30px, 40px) scale(1.15); opacity: 0.2; } }
+        @keyframes pulseSlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.02); } }
+        @keyframes textGlow { 0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.2); } 50% { text-shadow: 0 0 25px rgba(212,175,55,0.6), 0 0 5px rgba(212,175,55,0.4); } }
       `}} />
     </div>
   );

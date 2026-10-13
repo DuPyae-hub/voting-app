@@ -6,8 +6,7 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { getDeviceFingerprint } from "@/lib/fingerprint";
 
-// 🔴 ဒီနေရာမှာ မဲပေးခြင်း ပိတ်မည့် အချိန်ကို ပြင်ပါ 🔴
-const VOTING_DEADLINE = new Date("2026-09-30T15:00:00").getTime();
+const VOTING_DEADLINE = new Date("2026-10-30T15:00:00").getTime();
 
 export default function VotePage() {
   const [studentId, setStudentId] = useState("");
@@ -86,7 +85,6 @@ export default function VotePage() {
     }
   };
 
-  // Prevent background scrolling when modal is open
   useEffect(() => {
     if (message) {
       document.body.style.overflow = "hidden";
@@ -98,34 +96,25 @@ export default function VotePage() {
   if (!isClient) return null;
 
   return (
-    <div className="bg-[#faf8f5] text-stone-900 font-sans antialiased min-h-screen flex flex-col relative">
+    <div className="bg-[#120205] text-[#F7D070] font-sans antialiased min-h-screen flex flex-col relative selection:bg-[#800010] selection:text-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       
-      {/* 🔴 Pop-up Modal Window for Messages 🔴 */}
+      {/* Pop-up Modal Window */}
       {message && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-[fadeIn_0.2s_ease-out]">
-          <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl transform animate-[zoomIn_0.3s_cubic-bezier(0.16,1,0.3,1)] text-center relative overflow-hidden">
-            {/* Top Color Accent */}
-            <div className={`absolute top-0 left-0 w-full h-2 ${message.type === "success" ? "bg-emerald-500" : "bg-[#760000]"}`}></div>
-            
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 mt-2 ${message.type === "success" ? "bg-emerald-100" : "bg-red-50"}`}>
-               <span className="text-3xl">{message.type === "success" ? "✅" : "⚠️"}</span>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#120205]/90 backdrop-blur-md p-4 animate-[fadeIn_0.2s_ease-out]">
+          <div className="bg-[#120205] border border-[#D4AF37]/50 rounded-3xl p-8 max-w-sm w-full shadow-[0_0_50px_rgba(212,175,55,0.15)] transform animate-[zoomIn_0.3s_cubic-bezier(0.16,1,0.3,1)] text-center relative overflow-hidden">
+            <div className={`absolute top-0 left-0 w-full h-1.5 ${message.type === "success" ? "bg-[#D4AF37]" : "bg-[#800010]"}`}></div>
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 mt-2 border ${message.type === "success" ? "bg-[#D4AF37]/10 border-[#D4AF37]/30" : "bg-[#800010]/10 border-[#800010]/30"}`}>
+               <span className="text-3xl">{message.type === "success" ? "👑" : "⚠️"}</span>
             </div>
-            
-            <h3 className={`text-xl font-bold mb-3 ${message.type === "success" ? "text-emerald-700" : "text-[#760000]"}`}>
-               {message.type === "success" ? "Success!" : "Notice"}
+            <h3 className="text-xl font-bold mb-3 text-[#D4AF37]" style={{ fontFamily: "'Playfair Display', serif" }}>
+               {message.type === "success" ? "Crown Secured!" : "Notice"}
             </h3>
-            
-            <p className="text-stone-600 mb-8 leading-relaxed font-medium">
+            <p className="text-[#F7D070]/70 mb-8 leading-relaxed text-sm">
               {message.text}
             </p>
-            
             <button
               onClick={() => setMessage(null)}
-              className={`w-full py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors duration-300 ${
-                message.type === "success" 
-                  ? "bg-emerald-600 hover:bg-emerald-700 text-white" 
-                  : "bg-[#760000] hover:bg-[#520000] text-white"
-              }`}
+              className="w-full py-3.5 bg-[#800010] hover:bg-[#a30015] text-[#F7D070] font-bold uppercase tracking-[0.2em] text-xs rounded-xl shadow-lg transition-all cursor-pointer"
             >
               Close
             </button>
@@ -133,111 +122,140 @@ export default function VotePage() {
         </div>
       )}
 
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-[#120205]/95 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 md:gap-4">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#760000] flex items-center justify-center p-2 relative shadow-md">
-              <Image src="https://qnupslgliykfalnchsfg.supabase.co/storage/v1/object/public/Candidates/Untitled%20design-6.png" alt="Logo" fill className="object-contain p-1" />
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#800010]/20 border border-[#800010] flex items-center justify-center p-2 relative">
+              <Image src="https://qnupslgliykfalnchsfg.supabase.co/storage/v1/object/public/Candidates/Untitled%20design-6.png" alt="Logo" fill sizes="50px" className="object-contain p-1" priority />
             </div>
             <div>
-              <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-[#760000] block">Strategy First</span>
-              <span className="text-[10px] md:text-xs text-stone-500 font-medium">International College</span>
+              <span className="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#D4AF37] block">Strategy First</span>
+              <span className="text-[9px] md:text-[10px] text-[#F7D070]/60 tracking-wider">International College</span>
             </div>
           </div>
-          <div className="text-xs font-semibold px-3 py-1.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200 flex items-center gap-2">
-            {!isVotingClosed && <span className="flex h-2 w-2 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>}
-            {isVotingClosed ? "Voting Closed" : "Live Ballot"}
+          <div className="text-xs font-semibold px-4 py-1.5 rounded-full bg-[#800010]/20 text-[#F7D070] border border-[#800010]/40 flex items-center gap-2">
+            {!isVotingClosed && <span className="flex h-2 w-2 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]"></span></span>}
+            {isVotingClosed ? "Voting Closed" : "Live Royal Ballot"}
           </div>
         </div>
       </header>
 
-      <section className="bg-gradient-to-b from-[#760000] to-[#520000] text-white py-12 md:py-20 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="font-serif text-3xl md:text-5xl font-semibold tracking-wide text-[#f4d03f] mb-3">Fresher's Welcome 2026</h1>
-          <h2 className="text-xl md:text-3xl font-light tracking-widest uppercase mb-4">King & Queen Finalists</h2>
+      {/* Hero Banner */}
+      <section className="py-16 md:py-24 px-4 text-center relative overflow-hidden border-b border-[#D4AF37]/10">
+        <div className="absolute top-[-10%] left-[10%] w-[25rem] h-[25rem] bg-[#800010]/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-[-20%] right-[10%] w-[35rem] h-[35rem] bg-[#D4AF37]/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
+          <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-[#800010]/20 border border-[#800010]/50 mb-8">
+            <span className="text-[#D4AF37] text-[10px] md:text-xs font-black tracking-[0.4em] uppercase">
+              Selection Announcement
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-bold tracking-wide text-white mb-4 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Freshers' Welcome <span className="italic font-light text-[#D4AF37]">2026</span>
+          </h1>
+          
+          <h2 className="text-5xl md:text-[5.5rem] uppercase mb-12 text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            King & Queen
+          </h2>
+          
           {!isVotingClosed && (
-            <div className="mt-6 inline-block bg-black/20 backdrop-blur-sm border border-[#f4d03f]/20 px-6 py-2 rounded-xl">
-              <p className="text-xs text-[#f4d03f] uppercase tracking-[0.2em] mb-1 font-bold">Voting Closes In</p>
-              <p className="text-xl md:text-2xl font-mono font-light tracking-wider">{timeLeft}</p>
+            <div className="relative bg-[#120205] border border-[#D4AF37]/30 px-10 py-6 md:py-8 rounded-3xl shadow-[0_0_30px_rgba(128,0,16,0.3)] flex flex-col items-center">
+              <p className="text-xs text-[#F7D070] uppercase tracking-[0.4em] font-black opacity-80 mb-3">Voting Closes In</p>
+              <p className="text-3xl md:text-5xl font-bold text-white tracking-[0.15em]">
+                {timeLeft}
+              </p>
             </div>
           )}
         </div>
       </section>
 
-      <main className="max-w-6xl mx-auto px-4 md:px-6 py-10 w-full -mt-8 relative z-10 flex-grow">
+      {/* Main Form */}
+      <main className="max-w-6xl mx-auto px-4 md:px-6 py-12 w-full relative z-20 flex-grow">
         {isVotingClosed ? (
-          <div className="bg-white rounded-3xl p-10 md:p-20 shadow-2xl border border-stone-200 max-w-2xl mx-auto text-center mt-10">
-            <div className="w-20 h-20 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-4xl">🔒</span>
+          <div className="bg-[#120205] rounded-3xl p-10 md:p-20 shadow-2xl border border-[#D4AF37]/40 max-w-2xl mx-auto text-center">
+            <div className="w-20 h-20 bg-[#800010]/20 border border-[#800010] rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-4xl">👑</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#760000] mb-4">Voting is now Closed!</h2>
-            <p className="text-stone-500 text-lg">Thank you to everyone who participated. <br/> Please look forward to the live result announcement.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Voting is now Closed!</h2>
+            <p className="text-[#F7D070]/70 text-sm tracking-wider uppercase">Thank you to everyone who participated. <br/> Please look forward to the grand royal announcement.</p>
           </div>
         ) : (
-          <form onSubmit={handleVote} className="space-y-12">
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-stone-200 max-w-xl mx-auto text-center">
-              <h3 className="text-lg font-bold text-[#760000] mb-2 uppercase tracking-widest">Step 01 : Student ID</h3>
-              <p className="text-xs text-stone-500 mb-4">Please enter your official Strategy First Student ID.</p>
+          <form onSubmit={handleVote} className="space-y-16">
+            
+            {/* Student ID Box */}
+            <div className="bg-[#1a0306] rounded-3xl p-8 shadow-2xl border border-[#D4AF37]/20 max-w-xl mx-auto text-center">
+              <h3 className="text-sm font-extrabold text-[#D4AF37] mb-2 uppercase tracking-[0.3em]">Step 01 : Official Student ID</h3>
+              <p className="text-xs text-[#F7D070]/60 mb-6">Please enter your matriculation identification number.</p>
               <input
                 type="text"
                 placeholder="e.g. 2023B2023"
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value.toUpperCase())}
-                className="w-full bg-stone-50 px-4 py-4 rounded-xl border border-stone-300 focus:border-[#760000] focus:ring-2 focus:ring-[#760000]/20 text-center text-lg font-bold tracking-widest outline-none transition-all uppercase"
+                className="w-full bg-[#120205] px-5 py-4 rounded-2xl border border-[#D4AF37]/30 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-center text-xl font-bold tracking-widest text-white outline-none transition-all uppercase shadow-inner"
                 required
               />
             </div>
 
+            {/* Kings Section */}
             <div>
-              <div className="mb-6 border-b border-stone-200 pb-3 flex justify-between items-end">
-                <h3 className="font-serif text-2xl md:text-3xl font-bold text-stone-900">Choose Your <span className="text-[#760000]">King</span></h3>
+              <div className="mb-8 border-b border-[#D4AF37]/20 pb-4 flex justify-between items-end">
+                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Choose Your <span className="text-[#D4AF37]">King</span>
+                </h3>
+                <span className="text-xs text-[#800010] bg-[#D4AF37] px-3 py-1 rounded-full uppercase tracking-widest font-bold">Select 1</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {kings.map((king) => (
                   <CandidateCard key={king.id} candidate={king} selected={selectedKing === king.id} onSelect={() => setSelectedKing(king.id)} />
                 ))}
               </div>
             </div>
 
+            {/* Queens Section */}
             <div>
-              <div className="mb-6 border-b border-stone-200 pb-3 flex justify-between items-end">
-                <h3 className="font-serif text-2xl md:text-3xl font-bold text-stone-900">Choose Your <span className="text-[#760000]">Queen</span></h3>
+              <div className="mb-8 border-b border-[#D4AF37]/20 pb-4 flex justify-between items-end">
+                <h3 className="text-2xl md:text-3xl font-bold text-white tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Choose Your <span className="text-[#D4AF37]">Queen</span>
+                </h3>
+                <span className="text-xs text-[#800010] bg-[#D4AF37] px-3 py-1 rounded-full uppercase tracking-widest font-bold">Select 1</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {queens.map((queen) => (
                   <CandidateCard key={queen.id} candidate={queen} selected={selectedQueen === queen.id} onSelect={() => setSelectedQueen(queen.id)} />
                 ))}
               </div>
             </div>
 
-            <div className="max-w-md mx-auto pt-6">
+            {/* Submit Button */}
+            <div className="max-w-md mx-auto pt-8">
               <button
                 type="submit"
                 disabled={loading || !isReadyToSubmit}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-lg ${
-                  loading || !isReadyToSubmit ? "bg-stone-200 text-stone-400 cursor-not-allowed" : "bg-[#760000] text-[#f4d03f] hover:bg-[#520000] hover:shadow-xl hover:-translate-y-1"
+                className={`w-full py-5 px-8 rounded-2xl font-bold text-xs tracking-[0.3em] uppercase transition-all duration-300 shadow-2xl border ${
+                  loading || !isReadyToSubmit 
+                    ? "bg-[#1a0306] border-[#1a0306] text-[#F7D070]/30 cursor-not-allowed" 
+                    : "bg-[#800010] border-[#800010] text-[#F7D070] hover:bg-[#a30015] hover:scale-[1.02] cursor-pointer"
                 }`}
               >
-                {loading ? "Processing..." : "Submit Official Ballot"}
+                {loading ? "Securing Ballot..." : "Submit Royal Ballot"}
               </button>
             </div>
           </form>
         )}
       </main>
       
-      <footer className="bg-[#300000] text-stone-400 py-6 text-center text-xs mt-auto border-t border-[#520000]">
-        Strategy First International College © 2026
+      <footer className="bg-[#0a0103] text-[#F7D070]/40 py-8 text-center text-xs mt-auto border-t border-[#D4AF37]/10 tracking-wider">
+        Strategy First International College • Fresher's Welcome 2026
       </footer>
 
+      {/* Global Font Injection & Animations */}
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes zoomIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
       `}} />
     </div>
   );
@@ -245,18 +263,26 @@ export default function VotePage() {
 
 function CandidateCard({ candidate, selected, onSelect }: { candidate: any; selected: boolean; onSelect: () => void; }) {
   return (
-    <div onClick={onSelect} className={`group bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden cursor-pointer ${selected ? "border-[#760000] ring-2 ring-[#760000] shadow-xl scale-[1.02]" : "border-stone-200 hover:border-[#760000]/40 shadow-sm hover:shadow-md"}`}>
-      <div className="relative aspect-[4/3] bg-stone-100 flex items-center justify-center p-2">
+    <div 
+      onClick={onSelect} 
+      className={`group bg-[#1a0306] rounded-3xl border transition-all duration-300 flex flex-col overflow-hidden cursor-pointer ${
+        selected 
+          ? "border-[#D4AF37] ring-1 ring-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.15)] bg-[#800010]/20" 
+          : "border-[#D4AF37]/10 hover:border-[#D4AF37]/50 shadow-lg"
+      }`}
+    >
+      <div className="relative aspect-[4/3] bg-[#0a0103] flex items-center justify-center p-3">
         <Image src={candidate.image_url} alt={candidate.name} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-contain p-2 transition-transform duration-500 group-hover:scale-105" />
-        <div className={`absolute top-3 left-3 px-3 py-1 rounded-md text-xs font-bold shadow-sm ${selected ? "bg-[#760000] text-[#f4d03f]" : "bg-white text-stone-800"}`}>
+        <div className={`absolute top-4 left-4 px-3.5 py-1.5 rounded-xl text-xs font-bold shadow-lg border ${selected ? "bg-[#800010] text-[#F7D070] border-[#800010]" : "bg-[#120205]/80 text-[#D4AF37] border-[#D4AF37]/20"}`}>
           {candidate.candidate_number}
         </div>
-        <div className={`absolute top-3 right-3 w-7 h-7 rounded-full border flex items-center justify-center transition-all ${selected ? "bg-[#760000] border-[#760000]" : "bg-white/80 border-stone-300"}`}>
-          {selected && <span className="text-[#f4d03f] font-bold text-sm">✓</span>}
+        <div className={`absolute top-4 right-4 w-8 h-8 rounded-xl border flex items-center justify-center transition-all ${selected ? "bg-[#F7D070] border-[#F7D070] text-[#120205]" : "bg-[#120205]/40 border-[#D4AF37]/20 text-transparent"}`}>
+          <span className="font-extrabold text-sm">✓</span>
         </div>
       </div>
-      <div className={`p-4 flex flex-col items-center text-center border-t transition-colors ${selected ? "bg-[#520000] border-transparent" : "bg-white border-stone-100"}`}>
-        <h4 className={`font-bold text-lg ${selected ? "text-[#f4d03f]" : "text-stone-900"}`}>{candidate.name}</h4>
+      <div className="p-5 flex flex-col items-center text-center border-t border-[#D4AF37]/10">
+        <h4 className="font-bold text-xl tracking-wide text-white mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>{candidate.name}</h4>
+        <span className="text-[10px] tracking-widest uppercase text-[#F7D070]/60 mt-1">Official Finalist</span>
       </div>
     </div>
   );
